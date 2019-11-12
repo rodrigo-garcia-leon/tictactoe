@@ -33,7 +33,7 @@ impl<'a> Board<'a> {
             for col in 1..=self.size {
                 slice.push(self.get_cell_at(row, col));
             }
-            if is_slice_full(slice) {
+            if is_slice_complete(slice) {
                 return true;
             }
         }
@@ -44,7 +44,7 @@ impl<'a> Board<'a> {
             for row in 1..=self.size {
                 slice.push(self.get_cell_at(row, col));
             }
-            if is_slice_full(slice) {
+            if is_slice_complete(slice) {
                 return true;
             }
         }
@@ -54,7 +54,7 @@ impl<'a> Board<'a> {
         for i in 1..=self.size {
             slice.push(self.get_cell_at(i, i));
         }
-        if is_slice_full(slice) {
+        if is_slice_complete(slice) {
             return true;
         }
 
@@ -63,7 +63,7 @@ impl<'a> Board<'a> {
         for i in 1..=self.size {
             slice.push(self.get_cell_at(i, self.size - i + 1));
         }
-        if is_slice_full(slice) {
+        if is_slice_complete(slice) {
             return true;
         }
 
