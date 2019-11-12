@@ -1,4 +1,3 @@
-use std::io;
 use std::process;
 
 mod cell;
@@ -9,6 +8,7 @@ mod utils;
 use self::board::*;
 use self::cell::*;
 use self::player::*;
+use self::utils::*;
 
 const BOARD_SIZE: usize = 3;
 
@@ -22,36 +22,6 @@ fn main() {
         Player { name: "Player 1".to_string(), symbol: &Cell::X },
         Player { name: "Player 2".to_string(), symbol: &Cell::O },
     ];
-
-    let fetch_coordinate = || -> usize {
-        let coordinate;
-
-        loop {
-            let mut input = String::new();
-
-            match io::stdin().read_line(&mut input) {
-                Ok(_) => {}
-                Err(_) => { 
-                    println!("Failed to read line");
-                    continue;
-                }
-            }
-
-            match input.trim().parse() {
-                Ok(val) => {
-                    coordinate = val;
-                }
-                Err(_) => { 
-                    println!("Please type a number!");
-                    continue;
-                }
-            }
-
-            break;
-        }
-
-        coordinate
-    };
 
     loop {
         for player in players.iter() {

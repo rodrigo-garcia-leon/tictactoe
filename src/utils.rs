@@ -1,4 +1,36 @@
+use std::io;
+
 use crate::cell::*;
+
+pub fn fetch_coordinate() -> usize {
+    let coordinate;
+
+    loop {
+        let mut input = String::new();
+
+        match io::stdin().read_line(&mut input) {
+            Ok(_) => {}
+            Err(_) => { 
+                println!("Failed to read line");
+                continue;
+            }
+        }
+
+        match input.trim().parse() {
+            Ok(val) => {
+                coordinate = val;
+            }
+            Err(_) => { 
+                println!("Please type a number!");
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    coordinate
+}
 
 pub fn get_cell_index(size: usize, row: usize, col: usize) -> usize {
     return (col - 1) + size * (row - 1);
