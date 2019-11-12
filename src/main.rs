@@ -45,7 +45,7 @@ fn main() {
                 }
 
                 if !board.is_position_free(position) {
-                    println!("Position is already taken");
+                    println!("Position already taken");
                     continue;
                 }
 
