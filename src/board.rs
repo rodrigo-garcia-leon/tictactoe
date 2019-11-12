@@ -2,16 +2,16 @@ use std::fmt;
 use crate::cell::*;
 use crate::utils::*;
 
-pub struct Board {
+pub struct Board<'a> {
     size: usize,
-    cells: Vec<&'static Cell> 
+    cells: Vec<&'a Cell> 
 }
 
-impl Board {
+impl<'a> Board<'a> {
     fn get_cell_at(& self, row: usize, col: usize) -> &Cell {
         return self.cells[get_cell_index(self.size, row, col)];
     }
-    pub fn new(size: usize) -> Board {
+    pub fn new(size: usize) -> Board<'a> {
         Board { size, cells: vec![&Cell::Empty; size * size] }
     }
     pub fn is_position_valid(& self, position: (usize, usize)) -> bool {
@@ -21,9 +21,9 @@ impl Board {
         true
     }
     pub fn is_position_free(& self, position: (usize, usize)) -> bool {
-        return *self.get_cell_at(position.0, position.1) == Cell::Empty;
+        return self.get_cell_at(position.0, position.1) == &Cell::Empty;
     }
-    pub fn update(&mut self, position: (usize, usize), symbol: &'static Cell) {
+    pub fn update(&mut self, position: (usize, usize), symbol: &'a Cell) {
         self.cells[get_cell_index(self.size, position.0, position.1)] = symbol;
     }
     pub fn finished(&mut self) -> bool {
@@ -79,7 +79,7 @@ impl Board {
     }
 }
 
-impl fmt::Display for Board {
+impl<'a> fmt::Display for Board<'a> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let mut s = String::new();
 
