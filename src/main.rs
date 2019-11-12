@@ -14,6 +14,8 @@ const BOARD_SIZE: usize = 3;
 
 fn main() {
     println!("Tic-tac-toe");
+    println!("===========");
+    println!();
 
     let mut board = Board::new(BOARD_SIZE);
     let players = vec![
@@ -34,12 +36,16 @@ fn main() {
     loop {
         for player in players.iter() {
             println!("{}", player);
+            println!();
             println!("{}", board);
+            println!();
 
             let mut position: (usize, usize);
 
             loop {
+                println!("Row?");
                 let row = fetch_coordinate();
+                println!("Col?");
                 let col = fetch_coordinate();
                 position = (row, col);
 
@@ -58,18 +64,26 @@ fn main() {
 
             board.update(position, player.symbol);
 
+            println!();
             if board.finished() {
-                println!("Finished!");
-                println!("{} wins!", player.name);
+                println!("===========");
+                println!();
                 println!("{}", board);
+                println!();
+                println!("{} wins!", player.name);
                 process::exit(1);
             }
 
             if board.full() {
-                println!("Board full!");
+                println!("===========");
+                println!();
                 println!("{}", board);
+                println!();
+                println!("Board full!");
                 process::exit(1);
             }
+            println!("-----------");
+            println!();
         }
     }
 }
