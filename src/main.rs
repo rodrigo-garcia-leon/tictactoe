@@ -24,13 +24,33 @@ fn main() {
     ];
 
     let fetch_coordinate = || -> usize {
-        let mut input = String::new();
-        io::stdin().read_line(&mut input)
-            .expect("Failed to read line");
-        let input: usize = input.trim().parse()
-            .expect("Please type a number!");
+        let coordinate;
 
-        input
+        loop {
+            let mut input = String::new();
+
+            match io::stdin().read_line(&mut input) {
+                Ok(_) => {}
+                Err(_) => { 
+                    println!("Failed to read line");
+                    continue;
+                }
+            }
+
+            match input.trim().parse() {
+                Ok(val) => {
+                    coordinate = val;
+                }
+                Err(_) => { 
+                    println!("Please type a number!");
+                    continue;
+                }
+            }
+
+            break;
+        }
+
+        coordinate
     };
 
     loop {
