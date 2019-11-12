@@ -34,9 +34,9 @@ fn main() {
 
             loop {
                 println!("Row?");
-                let row = fetch_coordinate();
+                let row = request_coordinate();
                 println!("Col?");
-                let col = fetch_coordinate();
+                let col = request_coordinate();
                 position = (row, col);
 
                 if !board.is_position_valid(position) {

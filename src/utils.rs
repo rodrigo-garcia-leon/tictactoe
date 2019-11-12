@@ -2,7 +2,7 @@ use std::io;
 
 use crate::cell::*;
 
-pub fn fetch_coordinate() -> usize {
+pub fn request_coordinate() -> usize {
     let coordinate;
 
     loop {
