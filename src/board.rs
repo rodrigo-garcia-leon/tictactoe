@@ -27,48 +27,49 @@ impl<'a> Board<'a> {
         self.cells[get_cell_index(self.size, position.0, position.1)] = symbol;
     }
     pub fn finished(&mut self) -> bool {
-        for n in 0..self.cells.len() {
-            let row: usize = 1 + n / self.size;
-            let col: usize = 1 + n % self.size;
-
-            // row
+        // rows
+        for row in 1..=self.size {
             let slice: &mut Vec<&Cell> = &mut Vec::new();
-            for i in 1..=self.size {
-                slice.push(self.get_cell_at(row, i));
-            }
-            if is_slice_full(slice) {
-                return true;
-            }
-
-            // col
-            let slice: &mut Vec<&Cell> = &mut Vec::new();
-            for i in 1..=self.size {
-                slice.push(self.get_cell_at(i, col));
-            }
-            if is_slice_full(slice) {
-                return true;
-            }
-
-            // diag1
-            let slice: &mut Vec<&Cell> = &mut Vec::new();
-            for i in 1..=self.size {
-                slice.push(self.get_cell_at(i, i));
-            }
-            if is_slice_full(slice) {
-                return true;
-            }
-
-            // diag2
-            let slice: &mut Vec<&Cell> = &mut Vec::new();
-            for i in 1..=self.size {
-                slice.push(self.get_cell_at(i, self.size));
+            for col in 1..=self.size {
+                slice.push(self.get_cell_at(row, col));
             }
             if is_slice_full(slice) {
                 return true;
             }
         }
+
+        //cols
+        for col in 1..=self.size {
+            let slice: &mut Vec<&Cell> = &mut Vec::new();
+            for row in 1..=self.size {
+                slice.push(self.get_cell_at(row, col));
+            }
+            if is_slice_full(slice) {
+                return true;
+            }
+        }
+
+        // diag1
+        let slice: &mut Vec<&Cell> = &mut Vec::new();
+        for i in 1..=self.size {
+            slice.push(self.get_cell_at(i, i));
+        }
+        if is_slice_full(slice) {
+            return true;
+        }
+
+        // diag2
+        let slice: &mut Vec<&Cell> = &mut Vec::new();
+        for i in 1..=self.size {
+            slice.push(self.get_cell_at(i, self.size - i + 1));
+        }
+        if is_slice_full(slice) {
+            return true;
+        }
+
         false
     }
+
     pub fn full(&mut self) -> bool {
         for cell in self.cells.iter() {
             if **cell == Cell::Empty {
