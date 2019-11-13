@@ -72,7 +72,7 @@ impl<'a> Board<'a> {
 
     pub fn full(&mut self) -> bool {
         for cell in self.cells.iter() {
-            if **cell == Cell::Empty {
+            if *cell == &Cell::Empty {
                 return false
             }
         }
